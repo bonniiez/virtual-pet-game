@@ -1,6 +1,6 @@
 const gameState = {
   current: "INIT",
-  clock,
+  clock: 1,
   tick() {
     this.clock++;
     console.log(this.clock);

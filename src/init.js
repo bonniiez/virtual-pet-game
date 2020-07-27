@@ -18,7 +18,7 @@ async function init() {
   function nextAnimationFrame() {
     const now = Date.now();
     if (nextTimeToTick <= now) {
-      tick();
+      game.tick();
       nextTimeToTick <= now + TICK_RATE;
     }
     requestAnimationFrame(nextAnimationFrame);

@@ -1,11 +1,9 @@
 import { ICONS } from "./constants";
 
 const toggleHighlighted = (icon, show) =>
-  // console.log("icon: ", icon);
-  // console.log("show: ", show);
   document
     .querySelector(`.${ICONS[icon]}-icon`)
-    .classList.toggle("highlighted", show);
+    .classList[show ? "add" : "remove"]("highlighted");
 
 export default function initButtons(handleUserAction) {
   let selectedIcon = 0;
@@ -20,7 +18,8 @@ export default function initButtons(handleUserAction) {
       toggleHighlighted(selectedIcon, true);
     } else {
       handleUserAction(ICONS[selectedIcon]);
-      document.querySelector(".buttons").addEventListener("click", buttonClick);
     }
   }
+
+  document.querySelector(".buttons").addEventListener("click", buttonClick);
 }

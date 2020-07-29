@@ -1,6 +1,4 @@
 import game, { handleUserAction } from "./gameState";
-initButtons(handleUserAction);
-
 import { TICK_RATE } from "./constants";
 import initButtons from "./button";
 

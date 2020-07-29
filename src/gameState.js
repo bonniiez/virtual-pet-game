@@ -146,7 +146,6 @@ const gameState = {
   },
   determineFoxState() {
     if (this.current === "IDLING") {
-      console.log("SCENES[this.scene] ", SCENES[this.scene]);
       if (SCENES[this.scene] === "rain") {
         modFox("rain");
       } else {
@@ -191,6 +190,8 @@ const gameState = {
     writeModal("The fox died :( <br/> Press the middle button to start");
   },
 };
-
+function mod(n, m) {
+  return ((n % m) + m) % m;
+}
 export const handleUserAction = gameState.handleUserAction.bind(gameState);
 export default gameState;

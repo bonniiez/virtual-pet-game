@@ -22,21 +22,21 @@ const gameState = {
   scene: 0,
   tick() {
     this.clock++;
-    console.log("clock: ", this.clock, " dietime: ", this.dieTime);
+    // console.log("clock: ", this.clock, " dietime: ", this.dieTime);
     if (this.clock === this.wakeTime) {
       this.wake();
     } else if (this.clock === this.sleepTime) {
       this.sleep();
     } else if (this.clock === this.hungryTime) {
       this.getHungry();
-    } else if (this.clock === this.dieTime) {
-      this.die();
     } else if (this.clock === this.timeToStartCelebrating) {
       this.startCelebrating();
     } else if (this.clock === this.timeToEndCelebrating) {
       this.endCelebrating();
     } else if (this.clock === this.poopTime) {
       this.poop();
+    } else if (this.clock === this.dieTime) {
+      this.die();
     }
 
     return this.clock;
@@ -65,13 +65,10 @@ const gameState = {
 
   // last function in gameState
   handleUserAction(icon) {
-    console.log("this", this);
+    console.log("handleuseraction icon: ", icon);
     if (
-      ["POOPING", "FEEDING", "SLEEP", "CELEBRATING", "HATCHING"].includes(
-        this.current
-      )
+      ["FEEDING", "SLEEP", "CELEBRATING", "HATCHING"].includes(this.current)
     ) {
-      // do thing
       return;
     }
 
@@ -100,13 +97,26 @@ const gameState = {
     this.determineFoxState();
   },
   cleanUpPoop() {
+    console.log("this current(clean up poop): ", this.current);
     if (this.current === "POOPING") {
+      console.log("clean up poop!");
       this.dieTime = -1;
       togglePoopBag(true);
       this.startCelebrating();
       this.hungryTime = getNextHungerTime(this.clock);
+      writeModal();
     }
   },
+
+  poop() {
+    this.current = "POOPING";
+    console.log("now pooping: ", this.current);
+    this.poopTime = -1;
+    this.dieTime = getNextDieTime(this.clock);
+    modFox("pooping");
+    writeModal("Oh no! The fox pooped. Help clean it!");
+  },
+
   feed() {
     if (this.current !== "HUNGRY") {
       return;
@@ -150,23 +160,35 @@ const gameState = {
     modScene("night");
     this.wakeTime = this.clock + NIGHT_LENGTH;
     console.log("wake time: ", this.wakeTime);
+
+    this.clearTimes();
+    this.wakeTime = this.clock + NIGHT_LENGTH;
+  },
+
+  clearTimes() {
+    this.wakeTime = -1;
+    this.sleepTime = -1;
+    this.hungryTime = -1;
+    this.dieTime = -1;
+    this.poopTime = -1;
+    this.timeToStartCelebrating = -1;
+    this.timeToEndCelebrating = -1;
   },
 
   getHungry() {
     this.current = "HUNGRY";
     this.dieTime = getNextDieTime(this.clock);
-    console.log("die.time: ", this.dieTime);
+    console.log("hunger.time: ", this.dieTime);
     this.hungryTime = -1;
     modFox("hungry");
+    writeModal("oh! The fox is hungry.. maybe you should feed him.");
   },
   die() {
-    console.log("die");
-  },
-  poop() {
-    this.current = "POOPING";
-    this.poopTime = -1;
-    this.dieTime = getNextDieTime(this.clock);
-    modFox("pooping");
+    this.current = "DEAD";
+    modScene("dead");
+    modFox("dead");
+    this.clearTimes();
+    writeModal("The fox died :( <br/> Press the middle button to start");
   },
 };
 

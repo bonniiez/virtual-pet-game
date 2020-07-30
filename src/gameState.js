@@ -7,10 +7,12 @@ import {
   getNextHungerTime,
   getNextPoopTime,
 } from "./constants";
-import { modFox, modScene, togglePoopBag, writeModal } from "./ui";
+import { modFox, modScene, togglePoopBag, writeModal, printTimer } from "./ui";
 
 const gameState = {
   current: "INIT",
+  timer: 0,
+  startTimerCount: "",
   clock: 1,
   wakeTime: -1,
   sleepTime: -1,
@@ -22,6 +24,11 @@ const gameState = {
   scene: 0,
   tick() {
     this.clock++;
+
+    if (this.startTimerCount === "START_TIMER") {
+      this.timer++;
+      printTimer(Math.floor(this.timer / 60));
+    }
     // console.log("clock: ", this.clock, " dietime: ", this.dieTime);
     if (this.clock === this.wakeTime) {
       this.wake();
@@ -71,6 +78,7 @@ const gameState = {
     }
 
     if (this.current === "INIT" || this.current === "DEAD") {
+      this.startTimerCount = "START_TIMER";
       this.startGame();
       return;
     }
@@ -165,6 +173,7 @@ const gameState = {
     this.poopTime = -1;
     this.timeToStartCelebrating = -1;
     this.timeToEndCelebrating = -1;
+    this.timer = 0;
   },
 
   getHungry() {
@@ -180,10 +189,9 @@ const gameState = {
     modFox("dead");
     this.clearTimes();
     writeModal("The fox died :( <br/> Press the middle button to start");
+    this.startTimerCount = "";
   },
 };
-function mod(n, m) {
-  return ((n % m) + m) % m;
-}
+
 export const handleUserAction = gameState.handleUserAction.bind(gameState);
 export default gameState;

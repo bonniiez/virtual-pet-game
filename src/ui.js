@@ -21,3 +21,9 @@ export const writeModal = function writeModal(text = "") {
     }
   }
 };
+
+export const printTimer = function printTimer(timer) {
+  document.querySelector(
+    ".timer"
+  ).innerHTML = `<div class="timer-inner"> Time fox is kept alive: ${timer} seconds</div>`;
+};

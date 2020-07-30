@@ -1,3 +1,5 @@
 node_modules/
 .cache/
+dist/dist/
 dist/
+_site

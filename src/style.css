@@ -27,8 +27,13 @@ body {
   position: relative;
 }
 
-.inner {
+/* .inner {
   position: relative;
+} */
+
+.inner {
+  display: flex;
+  justify-content: center;
 }
 
 .game {
@@ -85,11 +90,21 @@ body {
 
 .modal {
   position: absolute;
-  top: 0;
+  /* top: 0;
   left: 0;
-  right: 0;
-  background-color: blueviolet;
+  right: 0; */
+  background-color: rgb(201, 80, 99);
   color: white;
+  border-color: white;
+  border-style: dashed;
+}
+.modal {
+  border-radius: 30px;
+  text-align: center;
+  max-width: 50%;
+  top: 25%;
+  padding: 20px;
+  text-align: center;
 }
 
 .modal:empty {

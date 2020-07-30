@@ -43,7 +43,6 @@ const gameState = {
   },
 
   startGame() {
-    console.log("hatching", this.clock);
     this.current = "HATCHING";
     this.wakeTime = this.clock + 300;
     modFox("egg");
@@ -65,7 +64,6 @@ const gameState = {
 
   // last function in gameState
   handleUserAction(icon) {
-    console.log("handleuseraction icon: ", icon);
     if (
       ["FEEDING", "SLEEP", "CELEBRATING", "HATCHING"].includes(this.current)
     ) {
@@ -97,9 +95,7 @@ const gameState = {
     this.determineFoxState();
   },
   cleanUpPoop() {
-    console.log("this current(clean up poop): ", this.current);
     if (this.current === "POOPING") {
-      console.log("clean up poop!");
       this.dieTime = -1;
       togglePoopBag(true);
       this.startCelebrating();
@@ -110,7 +106,6 @@ const gameState = {
 
   poop() {
     this.current = "POOPING";
-    console.log("now pooping: ", this.current);
     this.poopTime = -1;
     this.dieTime = getNextDieTime(this.clock);
     modFox("pooping");
@@ -127,18 +122,16 @@ const gameState = {
     this.poopTime = getNextPoopTime(this.clock);
     modFox("eating");
     this.timeToStartCelebrating = this.clock + 200;
+    writeModal("");
   },
 
   startCelebrating() {
-    console.log("start celebrating");
     this.current = "CELEBRATING";
     modFox("celebrate");
     this.timeToStartCelebrating = -1;
     this.timeToEndCelebrating = this.clock + 200;
   },
   endCelebrating() {
-    console.log("end celebrating");
-
     this.timeToEndCelebrating = -1;
     this.current = "IDLING";
     this.determineFoxState();
@@ -158,9 +151,9 @@ const gameState = {
     modFox("sleep");
     modScene("night");
     this.wakeTime = this.clock + NIGHT_LENGTH;
-    console.log("wake time: ", this.wakeTime);
 
     this.clearTimes();
+    writeModal("");
     this.wakeTime = this.clock + NIGHT_LENGTH;
   },
 
@@ -177,7 +170,6 @@ const gameState = {
   getHungry() {
     this.current = "HUNGRY";
     this.dieTime = getNextDieTime(this.clock);
-    console.log("hunger.time: ", this.dieTime);
     this.hungryTime = -1;
     modFox("hungry");
     writeModal("oh! The fox is hungry.. maybe you should feed him.");

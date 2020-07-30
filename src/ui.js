@@ -12,4 +12,12 @@ export const writeModal = function writeModal(text = "") {
   document.querySelector(
     ".modal"
   ).innerHTML = `<div class="modal-inner">${text}</div>`;
+
+  if (text == "") {
+    document.querySelector(".modal").setAttribute("style", "padding: 0");
+  } else {
+    if (text != "") {
+      document.querySelector(".modal").setAttribute("style", "padding: 20px");
+    }
+  }
 };

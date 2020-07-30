@@ -2,7 +2,7 @@ export const ICONS = ["fish", "poop", "weather"];
 export const TICK_RATE = 30000;
 export const SCENES = ["day", "rain"];
 export const RAIN_CHANCE = 0.2;
-export const DAY_LENGTH = 3000;
+export const DAY_LENGTH = 2500;
 export const NIGHT_LENGTH = 1000;
 export const getNextHungerTime = (clock) =>
   Math.floor(Math.random() * 3) + 700 + clock;

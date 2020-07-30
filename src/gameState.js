@@ -173,7 +173,6 @@ const gameState = {
     this.poopTime = -1;
     this.timeToStartCelebrating = -1;
     this.timeToEndCelebrating = -1;
-    this.timer = 0;
   },
 
   getHungry() {
@@ -190,6 +189,7 @@ const gameState = {
     this.clearTimes();
     writeModal("The fox died :( <br/> Press the middle button to start");
     this.startTimerCount = "";
+    this.timer = 0;
   },
 };
 

@@ -17,4 +17,4 @@ to learn more about managing application state using state machines,
 and automating code with tools like ESLint, Parcel, and Prettier ).
 
 
-Based off a tutorial from [FrontEndMasters](www.frontendmasters.com/)
+Based off a tutorial from [FrontEndMasters](https://frontendmasters.com/)
